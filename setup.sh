@@ -27,10 +27,9 @@ az extension add -n ml -y
 
 ## For backward compatibility - running on old subscription
 # <set_variables>
-#RESOURCE_GROUP_NAME="cloudml"
-GROUP="default_resource_group"
-LOCATION="eastus"
-WORKSPACE="carmpg_workspace"
+GROUP="default_resource_group_test"
+LOCATION="westus2"
+WORKSPACE="my_test_workspace"
 # </set_variables>
 
 
@@ -43,6 +42,7 @@ then
     # without bootstrap script.
 
     # <az_configure_defaults>
+    # Set up default configuration for your Azure subscription
     az configure --defaults group=$GROUP workspace=$WORKSPACE location=$LOCATION
     # </az_configure_defaults>
     echo "Default resource group set to $GROUP"
