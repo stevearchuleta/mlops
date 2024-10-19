@@ -24,7 +24,7 @@ fi
 
 # Check if the run ID is obtained
 if [[ -z "$run_id" ]]; then
-  echo "Job creation failed."
+  echo "Error: Job creation failed. Check if your pipeline YAML is valid."
   exit 3
 fi
 
@@ -37,14 +37,14 @@ fi
 # Monitor the job status
 status=$(az ml job show -n "$run_id" --query status -o tsv)
 if [[ -z "$status" ]]; then
-  echo "Failed to retrieve job status."
+  echo "Error: Failed to retrieve job status."
   exit 4
 fi
 
 # Retrieve the job URI
 job_uri=$(az ml job show -n "$run_id" --query services.Studio.endpoint)
 if [[ -z "$job_uri" ]]; then
-  echo "Failed to retrieve job URI."
+  echo "Error: Failed to retrieve job URI."
   exit 5
 fi
 
@@ -58,7 +58,7 @@ while [[ " ${running[@]} " =~ " ${status} " ]]; do
   sleep 8
   status=$(az ml job show -n "$run_id" --query status -o tsv)
   if [[ -z "$status" ]]; then
-    echo "Failed to retrieve job status."
+    echo "Error: Failed to retrieve job status."
     exit 4
   fi
 done
